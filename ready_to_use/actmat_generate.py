@@ -93,13 +93,6 @@ def get_matrix_structure(trial_info, spike_times, cluster_df, trial_name):
     return step_size, bins, NData, reminder
 
 
-def get_single_filled_matrix_previous(spike_times, spike_clusters, NData, step_size, bins):
-    for index in range(len(spike_times)):
-        neuron_id = spike_clusters[index]
-        bin_index = int((spike_times[index] - bins[0]) / step_size)
-        NData[neuron_id][bin_index] += 1
-    return NData
-
 def get_single_filled_matrix(spike_times, spike_clusters, NData, step_size, bins):
     for index in range(len(spike_times)):
         neuron_id = spike_clusters[index]
@@ -143,9 +136,9 @@ def iterate_all_file_for_a_trial(trial_info, absolute_path_list, trial_name, pro
     # return actmat, neuron_name
 
 
-def get_neuron_name(trial_info, absolute_path_list, trial_name):
+def get_neuron_name(trial_info, absolute_path_list, trial_name, project_file_name):
     neuron_id_all = []
-    actmat, neuron_id = get_actmat_for_a_trial(trial_info, absolute_path_list[0], trial_name)
+    actmat, neuron_id = get_actmat_for_a_trial(trial_info, absolute_path_list[0], trial_name, project_file_name)
     neuron_id_all.append(neuron_id)
     for path_index in range(1, len(absolute_path_list)):
         matrix, neuron_id = get_actmat_for_a_trial(trial_info, absolute_path_list[path_index], trial_name)
